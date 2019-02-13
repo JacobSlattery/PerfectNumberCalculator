@@ -7,8 +7,8 @@ import model.PerfectNumber;
 public class Driver {
 	
 	
-	private static final int REPEAT = 25;
-	private static final int MAX_THREADS = 12;
+	private static final int REPEAT = 5;
+	private static final int MAX_THREADS = 36;
 	private static final long MAXVALUE = 3000000000L;
 	
 	
@@ -18,7 +18,7 @@ public class Driver {
 		
 		System.out.println("Finding optimal thread count...");
 		HashMap<Integer, Long> map = new HashMap<Integer, Long>();
-		for (int i = 1; i <= MAX_THREADS; i++) {
+		for (int i = 32; i <= MAX_THREADS; i++) {
 			long average = averageTimeThorough(i);
 			map.put(i, average);
 			System.out.println("Average for " + i + " threads: " + average + " miliseconds");

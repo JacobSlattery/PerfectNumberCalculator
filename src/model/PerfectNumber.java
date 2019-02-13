@@ -13,7 +13,10 @@ public class PerfectNumber {
 		ArrayList<Long> potentials = potentialPerfectNumbers(maxValue);
 		threads = new Thread[threadCount];
 		for (int i = 0; i < threads.length; i++) {
-			addNewThread(perfectNumbers, potentials, i);
+			threads[i] = createThread(perfectNumbers, potentials);
+		}
+		
+		for (int i = 0; i < threads.length; i++) {
 			threads[i].start();
 		}
 		
@@ -28,7 +31,7 @@ public class PerfectNumber {
 		return perfectNumbers;
 	}
 
-	private static void addNewThread(ArrayList<Long> perfectNumbers, ArrayList<Long> potentials, int index) {
+	private static Thread createThread(ArrayList<Long> perfectNumbers, ArrayList<Long> potentials) {
 		Runnable runnable = () -> {
 			Long checkNumber = getNextPotential(potentials);
 			while (checkNumber != null) {
@@ -49,8 +52,8 @@ public class PerfectNumber {
 			}
 			
 		};
-
-		threads[index] = new Thread(runnable);
+		
+		return new Thread(runnable);
 	}
 	
 	private static ArrayList<Long> potentialPerfectNumbers(long maxValue) {
